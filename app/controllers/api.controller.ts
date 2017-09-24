@@ -165,23 +165,28 @@ export default class ApiController {
     const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&detailed=true&api_key=${api_key}`;
     const data = await util.doRequest(url);
     const neo = data["near_earth_objects"];
-    this.extractLookup(neo);
+    this.extractLookup(neo, start_date);
   }
 
-  extractLookup(neo) {
-    const lookup = {
+  extractLookup(neo, start_date) {
+    let lookup = {
       date: "",
       reference: "",
       name: "",
       speed: "",
       is_hazardous: false
     };
-    for (let item in neo) {
-      const obj = Object.assign({},lookup,
-        reference: item.neo_reference_id,
-        name: item.name,
-        speed: item["estimated_diameter"]["kilometers"],
-        is_hazardous: item.is_potentially_hazardous_asteroid);
+    const lookupArr = [];
+    for (let item in neo[start_date]) {
+      lookup = Object.assign({}, lookup, {
+        date: item,
+        reference: neo[item].neo_reference_id,
+        name: neo[item].name,
+        speed: neo[item]["estimated_diameter"]["kilometers"],
+        is_hazardous: neo[item].is_potentially_hazardous_asteroid
+      });
+      lookupArr.push(lookup);
     }
+    return lookupArr;
   }
 }
