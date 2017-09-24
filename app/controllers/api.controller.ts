@@ -159,9 +159,29 @@ export default class ApiController {
     // const d = new Date(); // today!
     // d.setDate(d.getDate() - pastDays);
     const end_date = moment().format("YYYY-MM-DD");
-    const start_date = moment().subtract(pastDays,'d').format('YYYY-MM-DD');
+    const start_date = moment()
+      .subtract(pastDays, "d")
+      .format("YYYY-MM-DD");
     const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&detailed=true&api_key=${api_key}`;
     const data = await util.doRequest(url);
-    data["near_earth_objects"]
+    const neo = data["near_earth_objects"];
+    this.extractLookup(neo);
+  }
+
+  extractLookup(neo) {
+    const lookup = {
+      date: "",
+      reference: "",
+      name: "",
+      speed: "",
+      is_hazardous: false
+    };
+    for (let item in neo) {
+      const obj = Object.assign({},lookup,
+        reference: item.neo_reference_id,
+        name: item.name,
+        speed: item["estimated_diameter"]["kilometers"],
+        is_hazardous: item.is_potentially_hazardous_asteroid);
+    }
   }
 }
