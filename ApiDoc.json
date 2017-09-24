@@ -1,0 +1,370 @@
+{
+  "swagger": "2.0",
+  "host": "localqa2.artstor.acit.com",
+  "info": {
+    "title": "Sync Monitor",
+    "description": "Sync Monitor API for all vocabulary services to get status of propagation to a record or term",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/sync-monitor/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/by-project/{id}": {
+      "get": {
+        "summary": "Get the status of terms in provided project id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Project id",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "limit of records in one page",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sort record by ascending(asc) or descending(des) order relative to modified date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "get records range from provided number eg: 100",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "get records of provided page number(alternative of 'start' param)",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "tags": [
+          "by-project"
+        ],
+        "responses": {
+          "200": {
+            "description": "project status response",
+            "schema": {
+              "$ref": "#/definitions/ByProjectResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/by-institute/{id}": {
+      "get": {
+        "summary": "Get the status of terms from provided institute id",
+        "description": "Get the status of terms from provided institute id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "institute id",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "limit of records in one page",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sort record by ascending(asc) or descending(des) order relative to modified date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "get records range from provided number eg: 100",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "get records of provided page number(alternative of 'start' param)",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "tags": [
+          "by-institute"
+        ],
+        "responses": {
+          "200": {
+            "description": "status response",
+            "schema": {
+              "$ref": "#/definitions/ByInstituteResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/by-session/{id}": {
+      "get": {
+        "summary": "Get the status of terms from provided batch id",
+        "description": "Get the status of terms from provided batch id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "batch id or session id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "by-session"
+        ],
+        "responses": {
+          "200": {
+            "description": "status response",
+            "schema": {
+              "$ref": "#/definitions/BySessionResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ByProjectRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "description": "Number of params to filter.(Note: if filter param is provided than no other param would be processed)",
+          "properties": {
+            "field": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "comparison": {
+              "type": "string"
+            }
+          }
+        },
+        "batchId": {
+          "type": "string"
+        },
+        "sortBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "start": {
+          "type": "integer"
+        }
+      }
+    },
+    "ByInstituteRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "description": "Number of params to filter.(Note: if filter param is provided than no other param would be processed)",
+          "properties": {
+            "field": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "comparison": {
+              "type": "string"
+            }
+          }
+        },
+        "batchId": {
+          "type": "string"
+        },
+        "sortBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "start": {
+          "type": "integer"
+        }
+      }
+    },
+    "BySessionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "BySessionResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "description": "session id or batch id"
+        },
+        "lastModified": {
+          "type": "string",
+          "description": "time when record added to db"
+        },
+        "instituteId": {
+          "type": "integer"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "termId": {
+          "type": "string"
+        },
+        "termType": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "string",
+          "description": "parent job start time"
+        },
+        "enqueue": {
+          "type": "integer",
+          "description": "count of enqueued jobs"
+        },
+        "complete": {
+          "type": "integer",
+          "description": "count of completed jobs"
+        },
+        "failed": {
+          "type": "integer",
+          "description": "count of failed jobs"
+        },
+        "work": {
+          "type": "integer",
+          "description": "count of work queue jobs"
+        },
+        "name": {
+          "type": "integer",
+          "description": "count of name queue jobs"
+        },
+        "analyze": {
+          "type": "integer",
+          "description": "count of analyze queue jobs"
+        },
+        "percentage": {
+          "type": "integer",
+          "description": "job's percentage of completion"
+        },
+        "status": {
+          "type": "string",
+          "description": "status of job i.e: complete, in progress, failed"
+        }
+      }
+    },
+    "ByProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "length": {
+          "type": "number",
+          "description": "length of jobinfo array"
+        },
+        "jobInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BySessionResponse"
+          }
+        }
+      }
+    },
+    "ByInstituteResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "length": {
+          "type": "number",
+          "description": "length of jobinfo array"
+        },
+        "jobInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BySessionResponse"
+          }
+        }
+      }
+    }
+  }
+}

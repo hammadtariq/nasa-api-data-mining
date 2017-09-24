@@ -1,0 +1,64 @@
+{
+  "name": "nasa-api-data-mining",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "email": "hammadtariq65@gmail.com",
+    "name": "Hammad Tariq"
+  },
+  "keywords": [
+    "koa",
+    "koa2",
+    "node",
+    "js",
+    "typescript"
+  ],
+  "scripts": {
+    "start": "node dist/bin/www.js",
+    "build": "pm2 start process.yml",
+    "test-c": "cucumber.js",
+    "test": "NODE_ENV=test mocha './dist/**/*.spec.js'",
+    "tsc-w": "tsc --watch",
+    "tsc": "tsc",
+    "debug": "NODE_ENV=development nodemon ./dist/bin/www",
+    "dev": "concurrently --kill-others 'npm run tsc-w' 'npm run debug'"
+  },
+  "bin": {
+    "monitor_deploy": "./scripts/deploy.js",
+    "monitor_tag": "./scripts/tag.js"
+  },
+  "dependencies": {
+    "chai-http": "^3.0.0",
+    "debug": "^2.6.3",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-logger": "^2.0.1",
+    "koa-router": "7.2.0",
+    "koa-static": "^3.0.0",
+    "koa-views": "^5.2.1",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.26",
+    "pug": "^2.0.0-rc.1",
+    "request": "^2.81.0",
+    "swagger-injector": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/chai-http": "ts2.0",
+    "@types/koa": "^2.0.39",
+    "@types/koa-bodyparser": "^3.0.23",
+    "@types/koa-logger": "2.0.2",
+    "@types/koa-router": "^7.0.22",
+    "@types/koa-views": "2.0.1",
+    "@types/mocha": "^2.2.41",
+    "@types/mongodb": "ts2.0",
+    "@types/node": "^7.0.22",
+    "chai": "^3.5.0",
+    "concurrently": "^3.4.0",
+    "cucumber": "^2.2.0",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.8.1",
+    "tslint": "^5.3.2",
+    "typescript": "^2.3.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib/"],
+  "rules": {
+    "semicolon": [true, "always", "ignore-interfaces"],
+    "no-var-keyword": true,
+    "prefer-const": true,
+    "indent": [true, "spaces"],
+    "no-duplicate-variable": true,
+    "no-eval": true,
+    "variable-name": [true, "ban-keywords"]
+  }
+}
